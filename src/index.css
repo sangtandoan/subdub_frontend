@@ -16,6 +16,10 @@
     .label-input {
         @apply flex flex-col gap-2 w-full;
 
+        &>span {
+            @apply font-bold;
+        }
+
         &>input {
             @apply border-[1px] border-gray-300 rounded-[8px] px-2 py-1;
         }
