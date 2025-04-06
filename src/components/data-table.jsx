@@ -16,16 +16,10 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
+import TablePagination from "@/components/TablePagination";
+import TableViewOptions from "@/components/TableViewOptions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import TablePagination from "@/components/TablePagination";
 import { useState } from "react";
 
 export default function DataTable({ columns, data }) {
@@ -61,44 +55,19 @@ export default function DataTable({ columns, data }) {
 
     return (
         <div>
-            <div className="flex items-center py-4">
+            <div className="flex items-end py-4">
                 <Input
                     placeholder="Filter name..."
                     value={table.getColumn("name").getFilterValue()}
                     onChange={(event) =>
                         table.getColumn("name").setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="max-w-sm py-0"
                 />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) => {
-                                            column.toggleVisibility(value);
-                                        }}
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                );
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <TableViewOptions table={table} />
             </div>
             <TablePagination table={table} />
-            <div className="rounded-md border">
+            <div className="rounded-md border mt-4">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
