@@ -3,11 +3,11 @@ import App from "../App.jsx";
 import Home from "../pages/Home.jsx";
 import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx";
-import { redirect } from "react-router";
+// import { redirect } from "react-router";
 
 async function homeLoader() {
-    console.log("home loader");
-    return redirect("/login");
+    // console.log("home loader");
+    // return redirect("/login");
 }
 
 const router = createBrowserRouter([
