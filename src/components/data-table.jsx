@@ -58,7 +58,11 @@ export default function DataTable({ columns, data }) {
 			<div className="flex items-end py-4">
 				<Input
 					placeholder="Filter name..."
-					value={table.getColumn("name").getFilterValue()}
+					// initial value of the filter is undefined or null => uncontrolled component
+					// onChange set value => controlled component
+					// react does not know if the component is controlled or uncontrolled
+					// so we need to set the value to empty string
+					value={table.getColumn("name").getFilterValue() ?? ""}
 					onChange={(event) =>
 						table.getColumn("name").setFilterValue(event.target.value)
 					}
