@@ -33,7 +33,9 @@ export default function TablePagination({ table }) {
                         <SelectTrigger className="h-8 w-[70px]">
                             <SelectValue placeholder={table.getState().pagination.pageSize} />
                         </SelectTrigger>
+
                         <SelectContent side="top">
+                            {console.log(table)}
                             {[1, 10, 20, 30, 40, 50].map((pageSize) => (
                                 <SelectItem key={pageSize} value={`${pageSize}`}>
                                     {pageSize}

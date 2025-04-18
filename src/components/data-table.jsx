@@ -19,57 +19,10 @@ import TablePagination from "@/components/TablePagination";
 import TableViewOptions from "@/components/TableViewOptions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { use, useMemo, useState } from "react";
+import { fetchData, data, dataTrue } from "@/lib/data";
 
-const data = [
-    {
-        id: "1",
-        name: "netflex subscription",
-        status: "active",
-        subscripted_at: "2025-04-01",
-        end_at: "2025-04-01",
-        duration: "1 month",
-        is_cancelled: false,
-    },
-    {
-        id: "2",
-        name: "genshin impact subscription",
-        status: "active",
-        subscripted_at: "2025-03-01",
-        end_at: "2025-04-01",
-        duration: "1 month",
-        is_cancelled: false,
-    },
-    {
-        id: "3",
-        name: "zzz subscription",
-        status: "active",
-        subscripted_at: "2025-02-01",
-        end_at: "2025-02-01",
-        duration: "1 month",
-        is_cancelled: false,
-    },
-    {
-        id: "4",
-        name: "hsr subscription",
-        status: "active",
-        subscripted_at: "2025-01-01",
-        end_at: "2025-05-01",
-        duration: "1 month",
-        is_cancelled: false,
-    },
-    {
-        id: "5",
-        name: "youtube subscription",
-        status: "active",
-        subscripted_at: "2025-03-01",
-        end_at: "2025-05-01",
-        duration: "1 month",
-        is_cancelled: false,
-    },
-];
-
-export default function DataTable({ columns }) {
+export default function DataTable({ columns, isCancelled }) {
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: 10,
@@ -79,14 +32,21 @@ export default function DataTable({ columns }) {
     const [columnVisibility, setColumnVisibility] = useState({});
     const [rowSelection, setRowSelection] = useState({});
 
-    const paginatedData = data.filter((row, index) => {
-        const start = pagination.pageIndex * pagination.pageSize;
-        const end = start + pagination.pageSize;
+    // const paginatedData = data.filter((row, index) => {
+    //     const start = pagination.pageIndex * pagination.pageSize;
+    //     const end = start + pagination.pageSize;
+    //
+    //     return index >= start && index < end;
+    // });
 
-        return index >= start && index < end;
-    });
-
-    const pageCount = Math.ceil(data.length / pagination.pageSize);
+    const promise = useMemo(
+        () => fetchData(pagination, isCancelled),
+        [pagination, isCancelled],
+    );
+    const paginatedData = use(promise);
+    const pageCount = Math.ceil(
+        (isCancelled ? data.length : dataTrue.length) / pagination.pageSize,
+    );
 
     const table = useReactTable({
         data: paginatedData,

@@ -1,54 +1,8 @@
 import DataTable from "@/components/data-table.jsx";
 import Modal from "@/components/Modal.jsx";
 import { columns } from "@/components/columns.jsx";
-
-const dataTrue = [
-    {
-        id: "1",
-        name: "netflex subscription",
-        status: "active",
-        subscripted_at: "2025-04-01",
-        end_at: "2025-04-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "2",
-        name: "genshin impact subscription",
-        status: "active",
-        subscripted_at: "2025-03-01",
-        end_at: "2025-04-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "3",
-        name: "zzz subscription",
-        status: "active",
-        subscripted_at: "2025-02-01",
-        end_at: "2025-02-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "4",
-        name: "hsr subscription",
-        status: "active",
-        subscripted_at: "2025-01-01",
-        end_at: "2025-05-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "5",
-        name: "youtube subscription",
-        status: "active",
-        subscripted_at: "2025-03-01",
-        end_at: "2025-05-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-];
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 function Home() {
     return (
@@ -62,11 +16,19 @@ function Home() {
                 />
             </div>
             <div className="container mx-auto py-4">
-                <DataTable columns={columns} />
+                <ErrorBoundary fallback={<div>Something went wrong</div>}>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <DataTable columns={columns} isCancelled={true} />
+                    </Suspense>
+                </ErrorBoundary>
             </div>
-            {/* <div className="container mx-auto"> */}
-            {/* 	<DataTable columns={columns} data={dataTrue} /> */}
-            {/* </div> */}
+            <div className="container mx-auto py-4">
+                <ErrorBoundary fallback={<div>Something went wrong</div>}>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <DataTable columns={columns} isCancelled={false} />
+                    </Suspense>
+                </ErrorBoundary>
+            </div>
         </>
     );
 }
