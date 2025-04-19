@@ -35,7 +35,6 @@ export default function TablePagination({ table }) {
                         </SelectTrigger>
 
                         <SelectContent side="top">
-                            {console.log(table)}
                             {[1, 10, 20, 30, 40, 50].map((pageSize) => (
                                 <SelectItem key={pageSize} value={`${pageSize}`}>
                                     {pageSize}

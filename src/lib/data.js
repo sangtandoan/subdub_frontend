@@ -1,4 +1,4 @@
-export const data = [
+export let data = [
     {
         id: "1",
         name: "netflex subscription",
@@ -109,6 +109,19 @@ async function getData(pagination, isCacelled) {
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
+
+    const response = await fetch("http://localhost:8080/api/v1/subscriptions/", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmdodXRhbzE0M0BnbWFpbC5jb20iLCJleHAiOjE3NDUwNDYxMzksInN1YiI6Ijg3ZmFiNzg2LTFjZDgtMTFmMC04ZDZiLTkwMmUxNjg1Nzc5YSJ9.pZxtp0Pwbtg-OO_Dnlgl_TrsmnZ_ugSHDhAE4OVLxeg",
+        },
+    });
+
+    const json = await response.json();
+    data = json.data;
+    console.log(data);
 
     if (isCacelled) {
         return data.filter((row, index) => {
