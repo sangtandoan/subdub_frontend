@@ -19,10 +19,10 @@ import TablePagination from "@/components/TablePagination";
 import TableViewOptions from "@/components/TableViewOptions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { use, useMemo, useState } from "react";
-import { fetchData, data, dataTrue } from "@/lib/data";
+import { use, useState } from "react";
+import { fetchData } from "@/lib/data";
 
-export default function DataTable({ columns, isCancelled }) {
+export default function DataTable({ columns }) {
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: 10,
@@ -39,17 +39,11 @@ export default function DataTable({ columns, isCancelled }) {
     //     return index >= start && index < end;
     // });
 
-    const promise = useMemo(
-        () => fetchData(pagination, isCancelled),
-        [pagination, isCancelled],
-    );
-    const paginatedData = use(promise);
-    const pageCount = Math.ceil(
-        (isCancelled ? data.length : dataTrue.length) / pagination.pageSize,
-    );
+    const { rows, total } = use(fetchData(pagination));
+    const pageCount = Math.ceil(total / pagination.pageSize);
 
     const table = useReactTable({
-        data: paginatedData,
+        data: rows,
         columns,
         manualPagination: true,
         pageCount: pageCount,

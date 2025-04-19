@@ -46,96 +46,37 @@ export let data = [
     },
 ];
 
-export const dataTrue = [
-    {
-        id: "1",
-        name: "netflex subscription",
-        status: "active",
-        subscripted_at: "2025-04-01",
-        end_at: "2025-04-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "2",
-        name: "genshin impact subscription",
-        status: "active",
-        subscripted_at: "2025-03-01",
-        end_at: "2025-04-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "3",
-        name: "zzz subscription",
-        status: "active",
-        subscripted_at: "2025-02-01",
-        end_at: "2025-02-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "4",
-        name: "hsr subscription",
-        status: "active",
-        subscripted_at: "2025-01-01",
-        end_at: "2025-05-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-    {
-        id: "5",
-        name: "youtube subscription",
-        status: "active",
-        subscripted_at: "2025-03-01",
-        end_at: "2025-05-01",
-        duration: "1 month",
-        is_cancelled: true,
-    },
-];
 let cache = new Map();
 
-export function fetchData(pagination, isCancelled) {
-    const queryKey = JSON.stringify(pagination) + isCancelled;
+export function fetchData(pagination) {
+    const queryKey = JSON.stringify(pagination);
 
     if (!cache.has(queryKey)) {
-        cache.set(queryKey, getData(pagination, isCancelled));
+        cache.set(queryKey, getData(pagination));
     }
     return cache.get(queryKey);
 }
 
-async function getData(pagination, isCacelled) {
+async function getData(pagination) {
     // Add a fake delay to make waiting noticeable.
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
 
-    const response = await fetch("http://localhost:8080/api/v1/subscriptions/", {
+    const url = `http://localhost:8080/api/v1/subscriptions/?limit=${pagination.pageSize}&offset=${pagination.pageIndex}`;
+
+    const response = await fetch(url, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmdodXRhbzE0M0BnbWFpbC5jb20iLCJleHAiOjE3NDUwNDYxMzksInN1YiI6Ijg3ZmFiNzg2LTFjZDgtMTFmMC04ZDZiLTkwMmUxNjg1Nzc5YSJ9.pZxtp0Pwbtg-OO_Dnlgl_TrsmnZ_ugSHDhAE4OVLxeg",
+            Authorization: "",
         },
     });
 
     const json = await response.json();
-    data = json.data;
-    console.log(data);
-
-    if (isCacelled) {
-        return data.filter((row, index) => {
-            const start = pagination.pageIndex * pagination.pageSize;
-            const end = start + pagination.pageSize;
-
-            return index >= start && index < end;
-        });
-    } else {
-        return dataTrue.filter((row, index) => {
-            const start = pagination.pageIndex * pagination.pageSize;
-            const end = start + pagination.pageSize;
-
-            return index >= start && index < end;
-        });
-    }
+    console.log("Hello");
+    return {
+        rows: json.data.subscriptions,
+        total: json.data.count,
+    };
 }

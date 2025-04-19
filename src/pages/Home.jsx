@@ -18,14 +18,7 @@ function Home() {
             <div className="container mx-auto py-4">
                 <ErrorBoundary fallback={<div>Something went wrong</div>}>
                     <Suspense fallback={<div>Loading...</div>}>
-                        <DataTable columns={columns} isCancelled={true} />
-                    </Suspense>
-                </ErrorBoundary>
-            </div>
-            <div className="container mx-auto py-4">
-                <ErrorBoundary fallback={<div>Something went wrong</div>}>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <DataTable columns={columns} isCancelled={false} />
+                        <DataTable columns={columns} />
                     </Suspense>
                 </ErrorBoundary>
             </div>
