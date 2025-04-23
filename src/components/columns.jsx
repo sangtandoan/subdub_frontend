@@ -14,6 +14,17 @@ import { ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const columns = [
+    /*
+        We use accessorKey to define the key of the data object (row) 
+        we want to display in the column.
+
+        We use id when this column is not define in the data object but some action columns.
+
+        header: defines what will be render in the header of the column.
+        cell: defines what will be render in the body of the column.
+        header, cell can take table, column, row as parameter to get the table instance, column instance, row instance,
+        based on what header, cell need to render its self.
+    */
     {
         id: "select",
         header: ({ table }) => {
