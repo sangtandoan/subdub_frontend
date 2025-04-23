@@ -20,16 +20,17 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import FormFieldDatePicker from "./FormFieldDatePicker";
+import { formatDate } from "@/lib/utils";
 
 const Duration = Object.freeze({
-	ONE_MONTH: "1 month",
-	THREE_MONTHS: "3 months",
+	ONE_WEEK: "weekly",
+	ONE_MONTH: "monthly",
 	SIX_MONTHS: "6 months",
-	ONE_YEAR: "1 year",
+	ONE_YEAR: "yearly",
 });
 
 const formSchema = z.object({
-	name: z.string().min(2).max(50),
+	name: z.string().min(3).max(50),
 	subscriptedAt: z.date(),
 	duration: z.nativeEnum(Duration),
 });
@@ -40,12 +41,40 @@ export default function AddSubscriptionForm() {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			name: "",
+			subscriptedAt: new Date(),
 		},
 	});
 
 	// 2.Define submit handler
-	const onSubmit = (data) => {
-		console.log("Form data", data);
+	// onSubmit is called when the form is submitted and has been processed by the zod resolver
+	// so the data is already validated
+	const onSubmit = async (data) => {
+		const dateString = formatDate(data.subscriptedAt);
+		const url = "http://localhost:8080/api/v1/subscriptions";
+
+		try {
+			const res = await fetch(url, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+				},
+				body: JSON.stringify({
+					name: data.name,
+					start_date: dateString,
+					duration: data.duration,
+				}),
+			});
+
+			if (!res.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			const response = await res.json();
+			console.log("Subscription added:", response);
+		} catch (error) {
+			console.error("Error:", error);
+		}
 	};
 
 	return (
