@@ -24,6 +24,9 @@ function Login() {
 				headers: {
 					"Content-Type": "application/json",
 				},
+				// need to set this if you want backend can set cookies to frontend
+				// and also if you want frontend can set cookies to backend
+				credentials: "include",
 				body: JSON.stringify(data),
 			});
 

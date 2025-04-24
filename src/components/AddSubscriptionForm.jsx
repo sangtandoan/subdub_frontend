@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -18,8 +17,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import FormFieldDatePicker from "./FormFieldDatePicker";
+import { Input } from "@/components/ui/input";
 import { formatDate } from "@/lib/utils";
 
 const Duration = Object.freeze({
@@ -35,7 +34,7 @@ const formSchema = z.object({
 	duration: z.nativeEnum(Duration),
 });
 
-export default function AddSubscriptionForm() {
+export default function AddSubscriptionForm({ closeModal }) {
 	// 1. Define your form
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -48,7 +47,7 @@ export default function AddSubscriptionForm() {
 	// 2.Define submit handler
 	// onSubmit is called when the form is submitted and has been processed by the zod resolver
 	// so the data is already validated
-	const onSubmit = async (data) => {
+	const handleAddNewSub = async (data) => {
 		const dateString = formatDate(data.subscriptedAt);
 		const url = "http://localhost:8080/api/v1/subscriptions";
 
@@ -70,8 +69,8 @@ export default function AddSubscriptionForm() {
 				throw new Error("Network response was not ok");
 			}
 
-			const response = await res.json();
-			console.log("Subscription added:", response);
+			closeModal(false);
+			window.location.reload();
 		} catch (error) {
 			console.error("Error:", error);
 		}
@@ -80,7 +79,7 @@ export default function AddSubscriptionForm() {
 	return (
 		<Form {...form}>
 			<form
-				onSubmit={form.handleSubmit(onSubmit)}
+				onSubmit={form.handleSubmit(handleAddNewSub)}
 				className="flex flex-col justify-between flex-1 mt-4"
 			>
 				<FormField

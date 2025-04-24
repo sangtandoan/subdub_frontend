@@ -3,22 +3,20 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import AddSubscriptionForm from "@/components/AddSubscriptionForm";
+import { useState } from "react";
 
 export default function Modal(props) {
+	const [open, setOpen] = useState(false);
+
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button className={props.className} variant="outline">
-					{props.title}
-				</Button>
+				<Button className={props.className}>{props.title}</Button>
 			</DialogTrigger>
 			<DialogContent
 				className={`sm:max-w-[400px] sm:min-h-[500px] flex flex-col`}
@@ -47,7 +45,7 @@ export default function Modal(props) {
 				{/* 		<Input id="duration" className="col-span-3" /> */}
 				{/* 	</div> */}
 				{/* </div> */}
-				<AddSubscriptionForm />
+				<AddSubscriptionForm closeModal={setOpen} />
 				{/* <DialogFooter> */}
 				{/* 	<Button type="submit" size="lg"> */}
 				{/* 		{props.buttonContent} */}
