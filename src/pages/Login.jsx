@@ -43,6 +43,26 @@ function Login() {
             console.log("Error:", error);
         }
     };
+
+    const handleLoginWithGoogle = async () => {
+        const url = import.meta.env.VITE_API_URL + "/oauth2";
+        try {
+            const res = await fetch(url, {
+                method: "GET",
+            });
+            if (!res.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const response = await res.json();
+            localStorage.setItem("access_token", response.data.token);
+
+            navigate("/");
+        } catch (error) {
+            console.log("Error:", error);
+        }
+    };
+
     return (
         <div className="flex flex-col justify-center items-start h-screen w-[360px] gap-2 mx-auto">
             <h3 className="text-5xl font-bold">Welcome back</h3>
@@ -71,6 +91,7 @@ function Login() {
             <button
                 className="flex justify-center items-center w-full py-2
 				rounded-[8px] cursor-pointer mt-6 text-black border-[1px] border-gray-300"
+                onClick={handleLoginWithGoogle}
             >
                 <img src={googleIcon} alt="google icon" className="w-5 mr-3" />
                 Sign in with Google
