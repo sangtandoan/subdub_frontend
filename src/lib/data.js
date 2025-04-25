@@ -10,7 +10,7 @@ export function fetchData(pagination, is_cancelled) {
 }
 
 async function getData(pagination, is_cancelled) {
-    const url = `${import.meta.env.VITE_API_URL}/subscriptions/
+    const url = `${import.meta.env.VITE_API_URL}/subscriptions
 ?limit=${pagination.pageSize}&offset=${pagination.pageIndex * pagination.pageSize}&is_cancelled=${is_cancelled}`;
 
     const response = await fetch(url, {
@@ -19,7 +19,6 @@ async function getData(pagination, is_cancelled) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
-        credentials: "include",
     });
 
     const json = await response.json();
