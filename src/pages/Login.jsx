@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router";
+import { useGoogleLogin } from "@react-oauth/google";
 import googleIcon from "../assets/google.png";
 
 function Login() {
@@ -44,24 +45,32 @@ function Login() {
         }
     };
 
-    const handleLoginWithGoogle = async () => {
-        const url = import.meta.env.VITE_API_URL + "/oauth2";
-        try {
-            const res = await fetch(url, {
-                method: "GET",
-            });
-            if (!res.ok) {
-                throw new Error("Network response was not ok");
+    const handleLoginWithGoogle = useGoogleLogin({
+        onSuccess: async (codeResponse) => {
+            const url =
+                import.meta.env.VITE_API_URL +
+                `/oauth2/callback?code=${codeResponse.code}`;
+
+            try {
+                const res = await fetch(url, {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const response = await res.json();
+                localStorage.setItem("access_token", response.data.token);
+
+                navigate("/");
+            } catch (error) {
+                console.log("Error:", error);
             }
-
-            const response = await res.json();
-            localStorage.setItem("access_token", response.data.token);
-
-            navigate("/");
-        } catch (error) {
-            console.log("Error:", error);
-        }
-    };
+        },
+        flow: "auth-code",
+    });
 
     return (
         <div className="flex flex-col justify-center items-start h-screen w-[360px] gap-2 mx-auto">
