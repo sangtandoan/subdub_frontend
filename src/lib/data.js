@@ -22,10 +22,9 @@ async function getData(pagination, is_cancelled) {
     });
 
     const json = await response.json();
-    console.log(json);
 
     return {
-        rows: json.data.subscriptions,
+        rows: json.data.subscriptions ? json.data.subscriptions : [],
         total: json.data.count,
     };
 }
