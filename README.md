@@ -1,12 +1,35 @@
-# React + Vite
+# Subdub Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The **Subdub Frontend** is a minimal web client built to demonstrate the functionality of the Subdub backend API. It provides a simple interface for user authentication and subscription management, without any production-grade styling or complex UX.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication**
+    - Sign up / Sign in with username & password
+    - OAuth2 login (e.g. Google, GitHub)
+- **Subscription Management**
+    - List your current subscriptions
+    - Add new subscriptions
+    - Edit or delete existing subscriptions
+- **Expiry Notifications**
+    - View which subscriptions are expiring soon
+    - (Backend-driven) Email reminder simulation in the UI logs
 
-## Expanding the ESLint configuration
+## 🏗️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Framework:** React (via Vite)
+- **HTTP Client:** Axios (or Fetch API)
+- **Styling:** Tailwind CSS (optional)
+- **State:** React Context (or useState / useReducer)
+
+## 📝 Notes
+
+- This UI is for demonstration only.
+
+- No production-grade error handling, form validation, or design polish.
+
+- Focus is purely on exercising the backend endpoints.
+
+## 🤝 Related
+
+- **Subdub Backend:** https://github.com/yourusername/subdub-backend
