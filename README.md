@@ -1,6 +1,6 @@
 # Subdub Frontend
 
-The **Subdub Frontend** is a minimal web client built to demonstrate the functionality of the Subdub backend API. It provides a simple interface for user authentication and subscription management, without any production-grade styling or complex UX.
+The **Subdub Frontend** is a minimal web client built to demonstrate the functionality of the Subdub backend API. It provides a simple interface for user authentication and subscription management.
 
 ## 🚀 Features
 
@@ -18,18 +18,10 @@ The **Subdub Frontend** is a minimal web client built to demonstrate the functio
 ## 🏗️ Tech Stack
 
 - **Framework:** React (via Vite)
-- **HTTP Client:** Axios (or Fetch API)
-- **Styling:** Tailwind CSS (optional)
-- **State:** React Context (or useState / useReducer)
-
-## 📝 Notes
-
-- This UI is for demonstration only.
-
-- No production-grade error handling, form validation, or design polish.
-
-- Focus is purely on exercising the backend endpoints.
+- **HTTP Client:** Fetch AP)
+- **Styling:** Tailwind CSS
+- **UI Library:** ShadCN/UI
 
 ## 🤝 Related
 
-- **Subdub Backend:** https://github.com/yourusername/subdub-backend
+- **Subdub Backend:** https://github.com/sangtandoan/subdub
