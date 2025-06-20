@@ -49,7 +49,7 @@ function Login() {
         onSuccess: async (codeResponse) => {
             const url =
                 import.meta.env.VITE_API_URL +
-                `/oauth2/callback?code=${codeResponse.code}`;
+                `/oauth2/callback?code=${codeResponse.code}?redirectUrl=${import.meta.VITE_OAUTH_REDIRECT_URL}`;
 
             try {
                 const res = await fetch(url, {
