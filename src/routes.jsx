@@ -18,10 +18,10 @@ async function homeLoader() {
     //         Authorization: `Bearer ${token}`,
     //     },
     // });
-
-    if (!res.ok) {
-        return redirect("/login");
-    }
+    //
+    // if (!res.ok) {
+    //     return redirect("/login");
+    // }
 }
 
 async function loginLoader() {
