@@ -11,13 +11,13 @@ async function homeLoader() {
         return redirect("/login");
     }
 
-    const url = import.meta.env.VITE_API_URL + "/auth/verify";
-    const res = await fetch(url, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    // const url = import.meta.env.VITE_API_URL + "/auth/verify";
+    // const res = await fetch(url, {
+    //     method: "GET",
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //     },
+    // });
 
     if (!res.ok) {
         return redirect("/login");
