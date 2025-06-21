@@ -18,7 +18,7 @@ The **Subdub Frontend** is a minimal web client built to demonstrate the functio
 ## 🏗️ Tech Stack
 
 - **Framework:** React (via Vite)
-- **HTTP Client:** Fetch AP)
+- **HTTP Client:** Fetch API
 - **Styling:** Tailwind CSS
 - **UI Library:** ShadCN/UI
 
