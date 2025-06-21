@@ -37,7 +37,7 @@ function Login() {
 			}
 
 			const response = await res.json();
-			localStorage.setItem("access_token", response.data.token);
+			localStorage.setItem("access_token", response.token);
 
 			navigate("/");
 		} catch (error) {
@@ -62,7 +62,7 @@ function Login() {
 				}
 
 				const response = await res.json();
-				localStorage.setItem("access_token", response.data.token);
+				localStorage.setItem("access_token", response.token);
 
 				navigate("/");
 			} catch (error) {
