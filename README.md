@@ -24,4 +24,4 @@ The **Subdub Frontend** is a minimal web client built to demonstrate the functio
 
 ## 🤝 Related
 
-- **Subdub Backend:** https://github.com/sangtandoan/subdub
+- **Subdub Backend:** https://github.com/sangtandoan/sub_tracker
